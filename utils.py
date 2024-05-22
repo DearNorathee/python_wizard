@@ -1,5 +1,16 @@
 # v02 => import print_time
 
+def filter_dict(myDict,select_key):
+    # should be in my lib
+    ans = {key: value for key, value in myDict.items() if key in select_key}
+    return ans
+
+def reorder_dict(input_dict, new_order):
+    from collections import OrderedDict
+    return OrderedDict((key, input_dict[key]) for key in new_order)
+
+
+
 def is_convertible_to_num(s):
     if isinstance(s,(int,float)):
         return True
