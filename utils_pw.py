@@ -1,7 +1,39 @@
 # v02 => import print_time
+from typing import List, Literal, Union, Any
 
+def filter_text(input_list:List[str],start_with = "",end_with ="", contain = "", case_sensitive:bool=False) -> List[str]:
+    """
+    filter a list using text string
+    currently only support 1 element of start_with, end_with, contain
 
-def custom_sort(lst, begin_with, end_with,ascending=True, string_last = True):
+    """
+    # this is from print_col 
+    # !!! TODO start_with, end_with, contain is list
+    # add 2 logic options
+
+    
+    if start_with != "":
+        if case_sensitive:
+            out_list = [x for x in input_list if x.startswith(start_with) ]
+        else:
+            out_list = [x for x in input_list if x.lower().startswith(start_with.lower()) ]
+        
+    
+    if end_with != "":
+        if case_sensitive:
+            out_list = [x for x in input_list if x.endswith(end_with) ]
+        else:
+            out_list = [x for x in input_list if x.lower().endswith(end_with.lower()) ]
+    
+    if contain != "":
+        if case_sensitive:
+            out_list = [x for x in input_list if contain in x]
+        else:
+            out_list = [x for x in input_list if contain.lower() in x.lower()]
+    
+    return out_list
+
+def custom_sort(input_list:List[Any], begin_with, end_with,ascending=True, string_last = True):
     import py_string_tool as pst
     import re
     # medium tested
@@ -16,20 +48,20 @@ def custom_sort(lst, begin_with, end_with,ascending=True, string_last = True):
     have_begin = []
     have_end = []
     
-    large_num = 2*len(lst)
+    large_num = 2*len(input_list)
     count = 0
     # ['m.>30', 'b.-30to-20', 'a.<-30', 'l.21to30', 'd.-14to-10', 'j.11to15', 'i.6to10', 'h.1to5', 'e.-9to-5', 'f.-4to-1', 'c.-19to-15', 'g.0', 'k.16to20']
     # check only first element
-    if isinstance(lst[0], str):
-        match = re.search(r'[a-zA-Z]\.', lst[0])
+    if isinstance(input_list[0], str):
+        match = re.search(r'[a-zA-Z]\.', input_list[0])
     else:
         # If it's a number 
         match = False
     
     if match:
-        sorted_list = sorted(lst,reverse=not ascending)
+        sorted_list = sorted(input_list,reverse=not ascending)
         return sorted_list
-    for val in lst:
+    for val in input_list:
         try:
             num = float(val)
             sort_by.append(num)
@@ -68,7 +100,7 @@ def custom_sort(lst, begin_with, end_with,ascending=True, string_last = True):
 
                     
     
-    sorted_list = [x for x, y in sorted(zip(lst, sort_by), key=lambda pair: pair[1])]
+    sorted_list = [x for x, y in sorted(zip(input_list, sort_by), key=lambda pair: pair[1])]
     # print(sorted_list01)
     return sorted_list
 
