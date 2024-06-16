@@ -1,5 +1,5 @@
 # v02 => import print_time
-from typing import List, Literal, Union, Any
+from typing import List, Literal, Union, Any, Tuple
 
 def filter_text(input_list:List[str],start_with = "",end_with ="", contain = "", case_sensitive:bool=False) -> List[str]:
     """
@@ -148,7 +148,7 @@ def print_time(duration):
         print(f"{hours} hour", end=" ")
         print(f"{minutes_str} minutes", end="\n")
 
-def package_version(package_name):
+def package_version(package_name:str) -> Tuple[int,int,int]:
     # medium tested
     """
     
