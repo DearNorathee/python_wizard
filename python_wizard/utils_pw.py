@@ -1,37 +1,6 @@
 # v02 => import print_time
 from typing import List, Literal, Union, Any, Tuple
 
-def filter_text(input_list:List[str],start_with = "",end_with ="", contain = "", case_sensitive:bool=False) -> List[str]:
-    """
-    filter a list using text string
-    currently only support 1 element of start_with, end_with, contain
-
-    """
-    # this is from print_col 
-    # !!! TODO start_with, end_with, contain is list
-    # add 2 logic options
-
-    
-    if start_with != "":
-        if case_sensitive:
-            out_list = [x for x in input_list if x.startswith(start_with) ]
-        else:
-            out_list = [x for x in input_list if x.lower().startswith(start_with.lower()) ]
-        
-    
-    if end_with != "":
-        if case_sensitive:
-            out_list = [x for x in input_list if x.endswith(end_with) ]
-        else:
-            out_list = [x for x in input_list if x.lower().endswith(end_with.lower()) ]
-    
-    if contain != "":
-        if case_sensitive:
-            out_list = [x for x in input_list if contain in x]
-        else:
-            out_list = [x for x in input_list if contain.lower() in x.lower()]
-    
-    return out_list
 
 def custom_sort(input_list:List[Any], begin_with, end_with,ascending=True, string_last = True):
     import py_string_tool as pst
@@ -104,18 +73,8 @@ def custom_sort(input_list:List[Any], begin_with, end_with,ascending=True, strin
     # print(sorted_list01)
     return sorted_list
 
-def filter_dict(myDict,select_key):
-    # should be in my lib
-    ans = {key: value for key, value in myDict.items() if key in select_key}
-    return ans
 
-def reorder_dict(input_dict, new_order):
-    from collections import OrderedDict
-    return OrderedDict((key, input_dict[key]) for key in new_order)
-
-
-
-def is_convertible_to_num(s):
+def is_convertible_to_num(s:Union[str,int,float]):
     if isinstance(s,(int,float)):
         return True
     try:
@@ -189,20 +148,4 @@ def package_version(package_name:str) -> Tuple[int,int,int]:
     package_version_tuple = tuple(map(int, package_version.split('.')))
     return package_version_tuple
 
-def flatten(list_of_lists):
-    # imported from "C:\Users\Heng2020\OneDrive\Python NLP\NLP 08_VocabList\VocatList_func01.py"
-    """Flatten a 2D list to 1D"""
-    return [item for sublist in list_of_lists for item in sublist]
 
-
-def filter_dict(myDict,select_key):
-    # imported from "C:\Users\Heng2020\OneDrive\Python NLP\NLP 02_Conjugation\Conju_PT.py"
-    # should be in my lib
-    ans = {key: value for key, value in myDict.items() if key in select_key}
-    return ans
-
-
-def reorder_dict(input_dict, new_order):
-    # imported from "C:\Users\Heng2020\OneDrive\Python NLP\NLP 02_Conjugation\Conju_PT.py"
-    from collections import OrderedDict
-    return OrderedDict((key, input_dict[key]) for key in new_order)
