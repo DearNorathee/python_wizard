@@ -1,21 +1,24 @@
 # from typing import List, Literal, Union, Any, Tuple
 from typing import *
-from inspect_py import Scalar
-def swap_item(input_list: List[Scalar], 
-              item1: Scalar, 
-              item2: Scalar, 
-              inplace: bool = False) -> Union[List[Scalar], None]:
+import inspect
+# from inspect_py import Scalar_BuiltIn
+
+Scalar_BuiltIn = Union[int, float, str, bool, complex]
+def swap_item(input_list: List[Scalar_BuiltIn], 
+              item1: Scalar_BuiltIn, 
+              item2: Scalar_BuiltIn, 
+              inplace: bool = False) -> Union[List[Scalar_BuiltIn], None]:
     """
     Swap the positions of two items in a list.
 
     Args:
-    input_list (List[Scalar]): The input list.
-    item1 (Scalar): First item to swap.
-    item2 (Scalar): Second item to swap.
+    input_list (List[Scalar_BuiltIn]): The input list.
+    item1 (Scalar_BuiltIn): First item to swap.
+    item2 (Scalar_BuiltIn): Second item to swap.
     inplace (bool): If True, modify the list in-place. If False, return a new list.
 
     Returns:
-    Union[List[Scalar], None]: Modified list if inplace is False, None otherwise.
+    Union[List[Scalar_BuiltIn], None]: Modified list if inplace is False, None otherwise.
 
     Raises:
     ValueError: If either item1 or item2 is not in the list.
@@ -34,10 +37,10 @@ def swap_item(input_list: List[Scalar],
     if not inplace:
         return input_list
         
-def to_back_of(input_list: List[Scalar], 
-               item_ref: Scalar, 
-               items_to_move: Union[Scalar, List[Scalar]], 
-               inplace: bool = False) -> Union[List[Scalar], None]:
+def to_back_of(input_list: List[Scalar_BuiltIn], 
+               item_ref: Scalar_BuiltIn, 
+               items_to_move: Union[Scalar_BuiltIn, List[Scalar_BuiltIn]], 
+               inplace: bool = False) -> Union[List[Scalar_BuiltIn], None]:
     # High tested
 
     if not inplace:
@@ -82,9 +85,9 @@ def to_back_of(input_list: List[Scalar],
         return input_list
 
 
-def to_front_of(input_list:List[Scalar], 
-                item_ref: Scalar, 
-                items_to_move:Union[Scalar,List[Scalar]], 
+def to_front_of(input_list:List[Scalar_BuiltIn], 
+                item_ref: Scalar_BuiltIn, 
+                items_to_move:Union[Scalar_BuiltIn,List[Scalar_BuiltIn]], 
                 inplace:bool=False) -> Union[List[Any], None]:
     # High tested
 
@@ -230,3 +233,6 @@ def contain_any_items(my_list, items_to_check) -> bool:
         bool: True if my_list contains all items from items_to_check, False otherwise.
     """
     return any(item in my_list for item in items_to_check)
+
+__all__ = [name for name, obj in globals().items() 
+           if inspect.isfunction(obj) and not name.startswith('_')]
