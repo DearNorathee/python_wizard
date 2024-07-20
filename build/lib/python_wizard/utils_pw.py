@@ -1,7 +1,54 @@
 # v02 => import print_time
 from typing import List, Literal, Union, Any, Tuple
+import inspect
 
 
+def month_diff(start_ym:int, end_ym:int, inclusive:bool = True):
+    """
+    start_ym, end_ym should be yyyymm eg 202201
+    """
+
+    # Convert the inputs to strings for easier manipulation
+    start_ym = str(start_ym)
+    end_ym = str(end_ym)
+    
+    # Extract the year and month from the inputs
+    start_year, start_month = int(start_ym[:4]), int(start_ym[4:])
+    end_year, end_month = int(end_ym[:4]), int(end_ym[4:])
+    
+    # Check if the start date is greater than the end date
+    if start_year > end_year or (start_year == end_year and start_month > end_month):
+        raise ValueError("start should be lower than end")
+    
+    # Calculate the difference
+    diff = (end_year - start_year) * 12 + (end_month - start_month) + 1  # +1 to make it inclusive
+    if inclusive:
+        return diff
+    else:
+        return diff - 1
+
+def add_months(start_ym:int, months_to_add):
+    # Convert start_ym to year and month
+    year = start_ym // 100
+    month = start_ym % 100
+    
+    # Calculate the new month and year after adding months_to_add
+    new_month = month + months_to_add
+    while new_month > 12:
+        new_month -= 12
+        year += 1
+    while new_month <= 0:
+        new_month += 12
+        year -= 1
+    
+    # Ensure the new_month is two digits
+    new_month_str = f'{new_month:02d}'
+    
+    # Combine the new year and month to form end_ym
+    end_ym = int(f'{year}{new_month_str}')
+    return end_ym
+
+### Need to modify this
 def custom_sort(input_list:List[Any], begin_with, end_with,ascending=True, string_last = True):
     import py_string_tool as pst
     import re

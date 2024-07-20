@@ -234,5 +234,36 @@ def contain_any_items(my_list, items_to_check) -> bool:
     """
     return any(item in my_list for item in items_to_check)
 
+def diff_items(list1,list2):
+    ans = [x for x in list1 if x not in list2]
+    return ans
+
+def common_items(list1,list2):
+    ans = [x for x in list1 if x in list2]
+    return ans
+
+def combine_2dicts(dict1: dict, dict2: dict):
+    """
+    Combines two dictionaries into a new dictionary.
+    If keys are the same, the value from dict2 will overwrite the value from dict1.
+    """
+    out_dict = dict1.copy()
+    out_dict.update(dict2)
+    return out_dict
+
+def combine_dicts(*dict_list: list[dict]):
+    """
+    Combines two dictionaries into a new dictionary.
+    If keys are the same, the value from dict2 will overwrite the value from dict1.
+    """
+    out_dict = dict_list[0].copy()
+    for i, curr_dict in enumerate(dict_list):
+        if i > 0:
+            out_dict.update(curr_dict)
+        
+    return out_dict
+
+# prevent showing many objects from import when importing this module
+# from typing import *
 __all__ = [name for name, obj in globals().items() 
            if inspect.isfunction(obj) and not name.startswith('_')]
