@@ -4,6 +4,27 @@ import inspect
 # from inspect_py import Scalar_BuiltIn
 
 Scalar_BuiltIn = Union[int, float, str, bool, complex]
+
+def dimension(input_list:List[Any]):
+    """
+    Calculates the depth of nesting in a list.
+    
+    Args:
+    lst (List[Any]): The input list to calculate the depth of nesting.
+    
+    Returns:
+    int: The depth of nesting in the input list.
+    """
+    # Base case: empty list
+    if not input_list:
+        return 0
+    # Base case: no nested lists
+    if not any(isinstance(x, list) for x in input_list):
+        return 1
+    # Recursive case: one or more nested lists
+    else:
+        return 1 + max(dimension(x) for x in input_list if isinstance(x, list))
+
 def swap_item(input_list: List[Scalar_BuiltIn], 
               item1: Scalar_BuiltIn, 
               item2: Scalar_BuiltIn, 
@@ -242,26 +263,6 @@ def common_items(list1,list2):
     ans = [x for x in list1 if x in list2]
     return ans
 
-def combine_2dicts(dict1: dict, dict2: dict):
-    """
-    Combines two dictionaries into a new dictionary.
-    If keys are the same, the value from dict2 will overwrite the value from dict1.
-    """
-    out_dict = dict1.copy()
-    out_dict.update(dict2)
-    return out_dict
-
-def combine_dicts(*dict_list: list[dict]):
-    """
-    Combines two dictionaries into a new dictionary.
-    If keys are the same, the value from dict2 will overwrite the value from dict1.
-    """
-    out_dict = dict_list[0].copy()
-    for i, curr_dict in enumerate(dict_list):
-        if i > 0:
-            out_dict.update(curr_dict)
-        
-    return out_dict
 
 # prevent showing many objects from import when importing this module
 # from typing import *
