@@ -2,7 +2,53 @@ from typing import List, Literal, Union, Any, Tuple
 import python_wizard.pw_list as pwl
 import unittest
 import inspect_py as inp
-from inspect_py import Scalar
+# from inspect_py import Scalar
+
+def test_to_last_item():
+    # Example usage
+    my_list01 = ['apple', 'banana', 'cherry', 'date', 'elderberry']
+    actual01 = pwl.to_last_item(my_list01, 'cherry')
+    expect01 = ['apple', 'banana', 'date', 'elderberry', 'cherry']
+    assert actual01 == expect01, inp.assert_message(actual01, expect01)
+
+    # Multiple items
+    my_list02 = ['apple', 'banana', 'cherry', 'date', 'elderberry']
+    actual02 = pwl.to_last_item(my_list02, ['cherry', 'apple'], inplace=False)
+    expect02 = ['banana', 'date', 'elderberry', 'cherry', 'apple']
+    expect02_unchanged = ['apple', 'banana', 'cherry', 'date', 'elderberry']
+    
+    assert actual02 == expect02, inp.assert_message(actual02, expect02)
+    assert my_list02 == expect02_unchanged, inp.assert_message(my_list02, expect02_unchanged)
+
+    # Test with a string item
+    my_list03 = ['apple', 'banana', 'cherry', 'date', 'elderberry']
+    actual03 = pwl.to_last_item(my_list03, 'banana')
+    expect03 = ['apple', 'cherry', 'date', 'elderberry', 'banana']
+    assert actual03 == expect03, inp.assert_message(actual03, expect03)
+
+    # Test with items not in the list
+    my_list04 = ['apple', 'banana', 'cherry', 'date', 'elderberry']
+    try:
+        actual04 = pwl.to_last_item(my_list04, ['fig', 'grape'])
+    except Exception as error04:
+        assert isinstance(error04, ValueError), inp.assert_message(error04, ValueError)
+
+def test_to_first_item():
+    # Example usage
+    my_list01 = ['apple', 'banana', 'cherry', 'date', 'elderberry']
+    actual01 = pwl.to_first_item(my_list01, 'cherry')
+    expect01 = ['cherry', 'apple', 'banana', 'date', 'elderberry']
+    assert actual01 == expect01, inp.assert_message(actual01, expect01)
+
+
+    # Multiple items
+    my_list02 = ['apple', 'banana', 'cherry', 'date', 'elderberry']
+    actual02 = pwl.to_first_item(my_list02, ['cherry', 'apple'], inplace=False)
+    expect02 = ['cherry', 'apple', 'banana', 'date', 'elderberry']
+    expect02_unchanged = ['apple', 'banana', 'cherry', 'date', 'elderberry']
+    
+    assert actual02 == expect02, inp.assert_message(actual02, expect02)
+    assert my_list02 == expect02_unchanged, inp.assert_message(my_list02, expect02_unchanged)
 
 def test_to_front_of():
     # Test case 1: Basic functionality

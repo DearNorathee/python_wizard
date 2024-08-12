@@ -2,8 +2,64 @@
 from typing import *
 import inspect
 # from inspect_py import Scalar_BuiltIn
-
+import warnings
 Scalar_BuiltIn = Union[int, float, str, bool, complex]
+
+def to_last_item(input_list: List[Any], items: Union[str, List[str]], inplace: bool = True) -> List[Any]:
+    # Convert items to a list if it's a string
+    
+    is_input_list_unique = is_unique(input_list)
+
+    if not is_input_list_unique:
+        warnings.warn(f"List is not unique, {get_duplicates(input_list)} are duplicated. This function might not work properly.")
+
+    if isinstance(items, list):
+        items_in = list(items)
+    else:
+        items_in = [items]
+    
+    # Create a new list or use the input list based on the inplace parameter
+    working_list = input_list if inplace else input_list.copy()
+    
+    # Move items to the end
+    item_not_in_found = [x for x in items_in if x not in input_list]
+    if item_not_in_found:
+        raise ValueError(f"One or more items not found in the list: {item_not_in_found}")
+
+    for item in items_in:
+        if item in working_list:
+            working_list.append(working_list.pop(working_list.index(item)))
+
+
+    return working_list
+
+def to_first_item(input_list: List[Any], items: Union[str, List[str]], inplace: bool = True) -> List[Any]:
+    # medium tested
+    # Convert items to a list if it's a string
+
+    is_input_list_unique = is_unique(input_list)
+
+    if not is_input_list_unique:
+        warnings.warn(f"List is not unique, {get_duplicates(input_list)} are duplicated. This function might not work properly.")
+
+    if isinstance(items, list):
+        items_in = list(items)
+    else:
+        items_in = [items]
+    
+    # Create a new list or use the input list based on the inplace parameter
+    working_list = input_list if inplace else input_list.copy()
+
+    item_not_in_found = [x for x in items_in if x not in input_list]
+    if item_not_in_found:
+        raise ValueError(f"One or more items not found in the list: {item_not_in_found}")
+    
+    # Move items to the front
+    for item in reversed(items_in):
+        if item in working_list:
+            working_list.insert(0, working_list.pop(working_list.index(item)))
+    
+    return working_list
 
 def dimension(input_list:List[Any]):
     """
@@ -44,6 +100,12 @@ def swap_item(input_list: List[Scalar_BuiltIn],
     Raises:
     ValueError: If either item1 or item2 is not in the list.
     """
+
+    is_input_list_unique = is_unique(input_list)
+
+    if not is_input_list_unique:
+        warnings.warn(f"List is not unique, {get_duplicates(input_list)} are duplicated. This function might not work properly.")
+
     if not inplace:
         input_list = input_list.copy()
 
