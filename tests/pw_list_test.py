@@ -4,6 +4,51 @@ import unittest
 import inspect_py as inp
 # from inspect_py import Scalar
 
+def test_swap_item():
+    # Test case 1: Basic swap
+    import warnings
+    list1 = [1, 2, 3, 4, 5]
+    actual1 = pwl.swap_item(list1, 2, 4)
+    expect1 = [1, 4, 3, 2, 5]
+    assert actual1 == expect1, inp.assert_message(actual1, expect1)
+    assert list1 == [1, 2, 3, 4, 5], "Original list should not be modified"
+
+    # Test case 2: Inplace swap
+    list2 = ['a', 'b', 'c', 'd', 'e']
+    result2 = pwl.swap_item(list2, 'b', 'd', inplace=True)
+    expect2 = ['a', 'd', 'c', 'b', 'e']
+    assert result2 is None, "Inplace swap should return None"
+    assert list2 == expect2, inp.assert_message(list2, expect2)
+
+    # Test case 3: Swap with non-existent item
+    list3 = [1, 2, 3, 4, 5]
+    with warnings.catch_warnings(record=True) as w:
+        warnings.simplefilter("always")
+        try:
+            pwl.swap_item(list3, 2, 6)
+        except ValueError as e:
+            assert str(e) == "One or both items not found in the list: 6 is not in list"
+        else:
+            assert False, "ValueError not raised"
+
+    # Test case 4: Swap in list with duplicates
+    list4 = [1, 2, 2, 3, 4, 4, 5]
+    with warnings.catch_warnings(record=True) as w:
+        warnings.simplefilter("always")
+        actual4 = pwl.swap_item(list4, 2, 4)
+        assert len(w) == 1
+        assert issubclass(w[-1].category, UserWarning)
+        assert "List is not unique" in str(w[-1].message)
+    expect4 = [1, 4, 2, 3, 2, 4, 5]
+    assert actual4 == expect4, inp.assert_message(actual4, expect4)
+
+    # Test case 5: Swap first and last items
+    list5 = ['start', 'middle', 'end']
+    actual5 = pwl.swap_item(list5, 'start', 'end')
+    expect5 = ['end', 'middle', 'start']
+    assert actual5 == expect5, inp.assert_message(actual5, expect5)
+
+
 def test_to_last_item():
     # Example usage
     my_list01 = ['apple', 'banana', 'cherry', 'date', 'elderberry']
@@ -140,8 +185,8 @@ def test_to_back_of():
 
     #  Reference item is the back of items_to_move
     test_list08 = ['col1','col2','col3','col4','col5','col6']
-    actual08 = pwl.to_back_of(test_list07, 'col5', ['col1','col2'])
-    expect08 = ['col3','col4','col5','col1','col2''col6']
+    actual08 = pwl.to_back_of(test_list08, 'col5', ['col1','col2'])
+    expect08 = ['col3','col4','col5','col1','col2','col6']
     assert actual08 == expect08 , inp.assert_message(actual08, expect08)
 
 
