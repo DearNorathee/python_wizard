@@ -47,5 +47,17 @@ def combine_dicts(*dict_list: list[dict]):
         
     return out_dict
 
+
 __all__ = [name for name, obj in globals().items() 
            if inspect.isfunction(obj) and not name.startswith('_')]
+
+# the objective of del is to remove this for package's user. I only want them to have access only functions
+
+# del seems to work
+del List
+del Literal
+del Union
+del Any
+del Tuple
+del Dict
+# print(test)
