@@ -1,4 +1,4 @@
-from typing import List, Literal, Union, Any, Tuple,Dict
+from typing import List, Literal, Union, Any, Tuple, Dict
 import inspect
 
 def swap_key_value(dictt:Dict[Any,Any]):
@@ -47,11 +47,13 @@ def combine_dicts(*dict_list: list[dict]):
         
     return out_dict
 
-test = [name for name, obj in globals().items() 
-           if inspect.isfunction(obj) and not name.startswith('_')]
+
 __all__ = [name for name, obj in globals().items() 
            if inspect.isfunction(obj) and not name.startswith('_')]
 
+# the objective of del is to remove this for package's user. I only want them to have access only functions
+
+# del seems to work
 del List
 del Literal
 del Union
