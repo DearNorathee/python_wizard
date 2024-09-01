@@ -11,7 +11,7 @@ setup(
     # "0.1.3rc1"
     packages=find_packages(),
     license="MIT",
-    install_requires=[""],
+    install_requires=["numpy"],
     
 
 )
