@@ -6,3 +6,4 @@ Home-page: https://github.com/DearNorathee/python_wizard
 Author: Dear Norathee
 Author-email: noratee5@hotmail.com
 License: MIT
+Requires-Dist: numpy
