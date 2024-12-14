@@ -51,7 +51,7 @@ def to_back_of(input_list: List[Scalar],
     
     if not is_unique(input_list):
         dup_items = get_duplicates(input_list)
-        raise Exception(f"List is not unique, {dup_items} are duplicated")
+        raise ValueError(f"List is not unique, {dup_items} are duplicated")
 
     # Ensure items_to_move is a list
     if not isinstance(items_to_move, list):
@@ -99,7 +99,7 @@ def to_front_of(input_list:List[Scalar],
     
     if not is_unique(input_list):
         dup_items = get_duplicates(input_list)
-        raise Exception(f"List is not unique, {dup_items} are duplicated")
+        raise ValueError(f"List is not unique, {dup_items} are duplicated")
 
     # Collect items to move and their indices
     to_move = []
