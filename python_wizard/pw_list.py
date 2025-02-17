@@ -1,9 +1,18 @@
-# from typing import List, Literal, Union, Any, Tuple
-from typing import *
+from typing import List, Literal, Union, Any, Tuple
+# from typing import *
 import inspect
 # from inspect_py import Scalar_BuiltIn
 import warnings
 Scalar_BuiltIn = Union[int, float, str, bool, complex]
+
+
+def duplicate_elements(lst:list[Any]) -> list:
+    from collections import Counter
+    # Count occurrences of each element
+    counter = Counter(lst)
+    # Find elements that are duplicated
+    duplicates = [item for item, count in counter.items() if count > 1]
+    return duplicates
 
 def to_last_item(input_list: List[Any], items: Union[str, List[str]], inplace: bool = True) -> List[Any]:
     # Convert items to a list if it's a string
